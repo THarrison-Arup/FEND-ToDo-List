@@ -11,9 +11,9 @@ import "./App.css";
 class App extends Component {
   state = {
     tasks: [
-      { text: "eat", completed: false },
-      { text: "sleep", completed: false },
-      { text: "react", completed: false }
+      { text: "eat", category: "food", completed: false },
+      { text: "sleep", category: "hobbies", completed: false },
+      { text: "react", category: "work", completed: false }
     ]
   };
 
@@ -39,7 +39,6 @@ class App extends Component {
   };
 
   removeTask = taskToRemove => {
-    console.log(taskToRemove);
     this.setState(state => {
       return {
         tasks: state.tasks.filter(task => task !== taskToRemove)

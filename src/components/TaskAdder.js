@@ -2,7 +2,8 @@ import React from 'react';
 
 class TaskAdder extends React.Component {
   state = {
-    newTask: ''
+    newTask: '',
+    newCategory: ''
   };
 
   render() {
@@ -12,27 +13,48 @@ class TaskAdder extends React.Component {
         <input
           id="newTask"
           type="text"
+          onChange={this.handleChange}  
           value={this.state.newTask}
-          onChange={this.handleChange}
+          placeholder="Add New Task..."
         />
-        <button type="submit">Add Task</button>
+        <input
+          id='newCategory'
+          type="text"
+          onChange={this.handleChange}  
+          value={this.state.newCategory}
+          placeholder="Add Task Category..."
+        />
+        <button
+          type="submit"
+        >Add Task</button>
       </form>
     );
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addTask({ text: this.state.newTask, completed: false });
+    if (this.state.newCategory && this.state.newTask) {
+      console.log('ready to submit')
+    } else {
+      console.log('there is a blank field')
+    };
+    this.props.addTask({ text: this.state.newTask, category: this.state.newCategory, completed: false });
     this.setState({
       newTask: ''
     });
   };
 
   handleChange = event => {
-    const { value } = event.target;
-    this.setState({
-      newTask: value
-    });
+      const { value, id } = event.target;
+      if (id === "newTask") {
+      this.setState({
+        newTask: value
+      });
+    } else if (id === "newCategory") {
+      this.setState({
+        newCategory: value
+      });
+    };
   };
 }
 

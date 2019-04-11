@@ -9,7 +9,7 @@ const TaskList = ({ tasks, removeTask, toggleTaskComplete }) => {
           className={task.completed ? 'complete' : null}
           onClick={() => toggleTaskComplete(task)}
           >
-            {task.text}
+            {task.text} - {task.category}
           </span>
           <button onClick={(event) => removeTask(task)}>Delete</button>
         </li>
