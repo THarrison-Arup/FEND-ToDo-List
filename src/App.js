@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import Heading from './components/Heading';
-import TaskAdder from './components/TaskAdder';
-import TaskList from './components/TaskList';
-import './App.css';
+import React, { Component } from "react";
+import Heading from "./components/Heading";
+import TaskAdder from "./components/TaskAdder";
+import TaskList from "./components/TaskList";
+import "./App.css";
 
 // class based component
 
@@ -11,19 +11,23 @@ import './App.css';
 class App extends Component {
   state = {
     tasks: [
-      { text: 'eat', completed: false },
-      { text: 'sleep', completed: true },
-      { text: 'react', completed: false }
+      { text: "eat", completed: false },
+      { text: "sleep", completed: false },
+      { text: "react", completed: false }
     ]
   };
 
   render() {
-    console.log('rendering...', this.state);
+    console.log("rendering...", this.state);
     return (
       <div className="App">
         <Heading name="Paul" />
         <TaskAdder addTask={this.addTask} />
-        <TaskList tasks={this.state.tasks} removeTask={this.removeTask} />
+        <TaskList
+          tasks={this.state.tasks}
+          removeTask={this.removeTask}
+          toggleTaskComplete={this.toggleTaskComplete}
+        />
       </div>
     );
   }
@@ -35,12 +39,32 @@ class App extends Component {
   };
 
   removeTask = taskToRemove => {
+    console.log(taskToRemove);
     this.setState(state => {
       return {
         tasks: state.tasks.filter(task => task !== taskToRemove)
       };
     });
   };
-}
 
+  toggleTaskComplete = taskToToggle => {
+    this.setState(state => {
+      if (taskToToggle.completed === false) {
+        return {
+          tasks: state.tasks.map(task => {
+            if (task.text === taskToToggle.text) {task.completed = true}
+            return task;
+          })
+        };
+      } else {
+        return {
+          tasks: state.tasks.map(task => {
+            if (task.text === taskToToggle.text) {task.completed = false}
+            return task;
+          })
+        }
+      }
+    });
+  };
+}
 export default App;
